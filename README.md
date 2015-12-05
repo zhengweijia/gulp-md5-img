@@ -10,6 +10,7 @@
 
 1、使用 [gulp-md5-save](https://github.com/zhengweijia/gulp-md5-save) 准备数据，
 
+	var md5Save = require("gulp-md5-save");
 	var data = {}; //一倍图:md5 的 map，用于存放数据
 	var sourceTmp = ["../../view/img/**"];
         // 具体模块 img 里的图片 md5
@@ -21,6 +22,8 @@
 
 2、使用本插件处理文件（修改具体文件名称），以及修改对应的字符串（css 中图片的引用名称）
 
+	var md5Img = require("gulp-md5-img");
+	var md5Save = require("gulp-md5-save");
 	var sourceTmp = ["img/**"];
     var targetImg = "/img";
     // 具体模块 img 里的图片 md5
