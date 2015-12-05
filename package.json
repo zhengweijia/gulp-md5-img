@@ -1,0 +1,52 @@
+{
+  "name": "smartisan-md5-img",
+  "version": "0.1",
+  "description": "修改图片的名称，使用 MD5 值，遇到二倍图则使用对应一倍图的 MD5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpfpizicai/gulp-md5-plus.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulp-md5"
+  ],
+  "dependencies": {
+    "gulp-util": "~2.2.14",
+    "through2": "^0.4.1",
+    "glob": "^4.0.6"
+  },
+  "homepage": "https://github.com/wpfpizicai/gulp-md5-plus.git",
+  "author": {
+    "name": "wpfpizicai"
+  },
+  "email": "tjuwpf@163.com",
+  "license": "MIT",
+  "gitHead": "08b76a219bad65f8f286cec67ffd962319e1aeed",
+  "bugs": {
+    "url": "https://github.com/wpfpizicai/gulp-md5-plus/issues"
+  },
+  "_id": "gulp-md5-plus@0.1.7",
+  "_shasum": "d28d7b46088ba97bc0fc8865933244df1633e9d7",
+  "_from": "gulp-md5-plus@0.1.7",
+  "_npmVersion": "1.4.28",
+  "_npmUser": {
+    "name": "wpfpizicai",
+    "email": "444689899@qq.com"
+  },
+  "maintainers": [
+    {
+      "name": "wpfpizicai",
+      "email": "444689899@qq.com"
+    }
+  ],
+  "dist": {
+    "shasum": "d28d7b46088ba97bc0fc8865933244df1633e9d7",
+    "tarball": "http://registry.npmjs.org/gulp-md5-plus/-/gulp-md5-plus-0.1.7.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/gulp-md5-plus/-/gulp-md5-plus-0.1.7.tgz"
+}
