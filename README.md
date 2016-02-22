@@ -1,3 +1,8 @@
+安装:
+
+npm install --save-dev gulp-md5-img
+
+
 说明：本代码大部分都来源于 [gulp-md5-plus](https://github.com/wpfpizicai/gulp-md5-plus)，我只是进行了改写。
 
 是 gulp 的插件，本插件必须配合着 [gulp-md5-save](https://github.com/zhengweijia/gulp-md5-save) 使用。
