@@ -19,7 +19,6 @@ module.exports = function (size, ifile, md5Data) {
             return callback();
         }
 
-        var d = calcMd5(file, size);
         var filename = path.basename(file.path);
         var extname = path.extname(file.path); // 后缀，文件格式
         var basename = path.basename(file.path, extname); //不带后缀名称
@@ -39,35 +38,50 @@ module.exports = function (size, ifile, md5Data) {
         }
         dir = path.dirname(dir);
 
-        var md5_filename = filename.split('.').map(function(item, i, arr){
-            return i == arr.length-2 ? item + '_'+ d : item;
-        }).join('.');
+        // var md5_filename = filename.split('.').map(function(item, i, arr){
+        //     return i == arr.length-2 ? item + '_'+ d : item;
+        // }).join('.');
 
-
-        var repaceName = md5_filename;
+        // var repaceName = md5_filename;
+        var repaceName = '';
+        var splitStr = '';
         if (filename.indexOf("@2x") >= 0) {
             // 二倍图
-            var x = md5Data[sub_namepath+(basename.split("@2x")[0])+extname];
-            if( x && x != "") {
-                // var newMD5 =  calcStrMd5(x + d, size);
-                repaceName = basename.split("@2x")[0]+"_"+x+"@2x"+extname;
-            }
+            splitStr = '@2x';
         } else if (filename.indexOf("@3x") >= 0) {
             // 三倍图
-            var x = md5Data[sub_namepath+(basename.split("@3x")[0])+extname];
-            if( x && x != "") {
-                // var newMD5 =  calcStrMd5(x + d, size);
-                repaceName = basename.split("@3x")[0]+"_"+x+"@3x"+extname;
-            }
-        } else {
-            // 一倍图
-            var x = md5Data[sub_namepath+basename+extname];
-            if( x && x != "") {
-                // var newMD5 =  calcStrMd5(d+x, size);
-                repaceName = basename+"_"+x+extname;
+            splitStr = '@3x';
+        } 
+        var fname = basename;
+        if(splitStr != '') {
+            fname = basename.split(splitStr)[0];
+        }
+        var x = md5Data[sub_namepath+fname+extname];
+        
+        if(!x || x == '') {
+            // 进入到这个判断，则说明，没有 1 倍图
+            if(filename.indexOf("@3x") >= 0) {
+                // 如果是 3@x 图，先查看有没有对应的 @2x 图，如果有，就有用 @2x 图的名称
+                x = md5Data[sub_namepath+fname+'@2x'+extname];
+
+                if(!x || x == '') {
+                    x = md5Data[sub_namepath+basename+extname];
+                }
+            } else if(filename.indexOf("@2x") >= 0){
+                // 如果是 2 倍图，则用自己的 MD5 值
+                x = md5Data[sub_namepath+basename+extname];
             }
         }
 
+        if(!x || x == '') {
+            x = calcMd5(file, size);
+        } else if(x.indexOf(',') >= 0) {
+            // 多文件组合成的 md5 值,
+            // 值类似： 'aj22u2sh,suy6s6sd5,jsd7da65' 是用 逗号分隔的
+            x = calcStrMd5(x, size);
+        } 
+
+        repaceName = fname+"_"+x+splitStr+extname;
         // if(basename.indexOf('3_background') >= 0 || basename.indexOf('background.jpg') >= 0){
         //     console.log('”'+sub_namepath+filename+ '“   ' +repaceName +'\n');
         // }
@@ -119,7 +133,23 @@ function calcMd5(file, slice){
     return slice >0 ? md5.digest('hex').slice(0, slice) : md5.digest('hex');
 }
 function calcStrMd5(str, slice){
+    var ret = '';
     var md5 = crypto.createHash('md5');
+    var is = false;
+    if(str.indexOf(',') >= 0) {
+        is = true;
+        // 是数组，需要处理一下
+        var list = str.split(',');
+        var strTemp = '';
+        list.sort();// 递增顺序排序
+        for (var i = 0; i < list.length; i++) {
+            strTemp = strTemp +list[i];
+        };
+        str = strTemp;
+    }
+
     md5.update(str, 'utf8');
-    return slice >0 ? md5.digest('hex').slice(0, slice) : md5.digest('hex');
+    ret= slice >0 ? md5.digest('hex').slice(0, slice) : md5.digest('hex');
+    return ret ;
+
 }

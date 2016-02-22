@@ -1,5 +1,5 @@
 {
-  "name": "smartisan-md5-img",
+  "name": "gulp-md5-img",
   "version": "0.1",
   "description": "修改图片的名称，使用 MD5 值，遇到二倍图则使用对应一倍图的 MD5",
   "main": "index.js",
