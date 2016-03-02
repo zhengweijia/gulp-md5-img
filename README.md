@@ -37,4 +37,81 @@ npm install --save-dev gulp-md5-img
         .pipe(gulp.dest(targetImg));
 
 
+#Example:
+
+Images path:
+
+	img
+	├── pc
+	│   ├── a.jpg
+	│   ├── a@2x.jpg
+	│   ├── b.jpg
+	├── mobile
+	│   ├── a.jpg
+	│   ├── a@2x.jpg
+	└── a.jpg
+
+css: index.css
+	
+	.figure {
+    	background-image: -webkit-image-set(url(img/pc/a.jpg) 1x, url(img/pc/a@2x.jpg) 2x);
+	}
+	.title {
+    	background-image: -webkit-image-set(url(img/mobile/a.png) 1x, url(	img/mobile/a@2x.jpg) 2x);
+	}
+	.logo {
+    	background-image: url(img/a.jpg);
+	}
+	.logo-b {
+    	background-image: url(img/pc/b.jpg);
+	}
+
+
+Code:
+
+    var md5Save = require("gulp-md5-save");
+    var md5Img = require("gulp-md5-img");
+    var data = {}; //save md5 value
+    var sourceImg = ["./img/**"];
+    var targetImg = "./release/img";
+    var linkFiles = ['./index.css'];
+    gulp.task('save', function () {
+        gulp.src(sourceImg)
+            .pipe(md5Save(10, data));
+    });
+    gulp.task('imgEdit', ['save'], function () {
+        gulp.src(sourceImg)
+            .pipe(md5Img(10 ,linkFiles, data))
+            .pipe(gulp.dest(targetImg));
+    });
+    
+Result:
+
+1、Images path
+
+	release/img
+	├── pc
+	│   ├── a_b14ff9e1de.jpg
+	│   ├── a_b14ff9e1de@2x.jpg
+	│   ├── b_629ccc774a.jpg
+	├── mobile
+	│   ├── a_b14ff9e1de.jpg
+	│   ├── a_b14ff9e1de@2x.jpg
+	└── a_b14ff9e1de.jpg
+	
+2、index.css
+
+	.figure {
+    	background-image: -webkit-image-set(url(img/pc/a_b14ff9e1de.jpg) 1x, url(img/pc/a_b14ff9e1de@2x.jpg) 2x);
+	}
+	.title {
+    	background-image: -webkit-image-set(url(img/mobile/a_b14ff9e1de.jpg) 1x, url(	img/mobile/a_b14ff9e1de@2x.jpg) 2x);
+	}
+	.logo {
+    	background-image: url(img/a_b14ff9e1de.jpg);
+	}
+	.logo-b {
+    	background-image: url(img/pc/b_629ccc774a.jpg);
+	}
+
 
