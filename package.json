@@ -1,7 +1,7 @@
 {
   "name": "gulp-md5-img",
   "version": "1.0.0",
-  "description": "修改图片的名称，使用 MD5 值，遇到二倍图则使用对应一倍图的 MD5。（notice：base on https://github.com/wpfpizicai/gulp-md5-plus）",
+  "description": "md5 img, like a.png、a2@x.png、a3@x.png in css.（notice：base on https://github.com/wpfpizicai/gulp-md5-plus）",
   "main": "index.js",
   "dependencies": {
     "glob": "^4.5.3",
