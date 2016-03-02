@@ -1,6 +1,6 @@
 {
   "name": "gulp-md5-img",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "md5 img, like a.png、a2@x.png、a3@x.png in css.（notice：base on https://github.com/wpfpizicai/gulp-md5-plus）",
   "main": "index.js",
   "dependencies": {
